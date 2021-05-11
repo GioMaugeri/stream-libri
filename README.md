@@ -23,4 +23,4 @@ Dividendosi in gruppi di due o tre sviluppatori, fare un **fork** di questo repo
 Il fork consisten nel creare una copia del repository nel proprio namespace. In questo modo è possibile avere accesso completo alla propria copia, permettendo di fare il push di commit e di fornire l'accesso ad altri utenti su git (i colleghi con cui svolgere gli esercizi).
 
 Ogni sviluppatore deve creare un feature branch per svolgere gli esercizi, facendo poi il merge con il brance principale (master o main).
-Ciao amici, non ci capisco un ca**o!!
+
