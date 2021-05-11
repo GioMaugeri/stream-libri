@@ -9,7 +9,7 @@ public class Libreria {
 	private static int i = 0;
 	
 	private static Libro[] prodPool = new Libro[] { 
-			new Libro("Leviathan", Categoria.FANTASY, 20),
+			new Libro("Leviathano", Categoria.FANTASY, 20),
 			new Libro("Trono di Spade", Categoria.FANTASY, 40),
 			new Libro("Signore degli Anelli", Categoria.FANTASY, 25),
 
