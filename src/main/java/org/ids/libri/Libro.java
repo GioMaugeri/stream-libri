@@ -36,4 +36,8 @@ public class Libro {
 		return titolo + " (" + categoria + ", " + prezzo + "€)";
 	}
 
+    public Object getCategoria() {
+        return null;
+    }
+
 }

@@ -15,12 +15,19 @@ public class StreamLibri {
             .collect(Collectors.toList());
     }
 
+    //Dobbiamo contare i livri di cyberpunk
     public long contaLibriCyberpunk(List<Libro> list) {
-        return 0;
+        return null:
+        // return list.stream()
+        //      .filter(s -> s.getCategoria().equals("CYBERPUNK"))
+        //      .count();
     }
 
     public List<Libro> prezzoCompresoTra12e15(List<Libro> list) {
-        return null;
+        return list.stream()
+                .filter(s -> s.getPrezzo() >= 12)
+                 .filter(s -> s.getPrezzo() <= 15)
+                 .collect(Collectors.toList());
     }
 
     public List<String> filtraListaTitoliLibriCyberpunkOppureFantasy(List<Libro> list) {
