@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import org.ids.libri.Libro.Categoria;
 
 public class StreamLibri {
 
@@ -17,7 +18,7 @@ public class StreamLibri {
 
     public long contaLibriCyberpunk(List<Libro> list) {
         return list.stream()
-                .filter(s->s.getCategoria()==Categoria .CYBERPUNK)
+                .filter(s->s.getCategoria()==Categoria.CYBERPUNK)
                 .count();
         
     }
@@ -30,7 +31,10 @@ public class StreamLibri {
     }
 
     public List<String> filtraListaTitoliLibriCyberpunkOppureFantasy(List<Libro> list) {
-        return null;
+        return list.stream()
+                .filter(s->s.getCategoria()==Categoria.CYBERPUNK||s.getCategoria()==Categoria.FANTASY)
+                .map(s->s.getTitolo())
+                .collect(Collectors.toList());
     }
 
     public List<Libro> generaListaLibriCyberpunk(int n) {
