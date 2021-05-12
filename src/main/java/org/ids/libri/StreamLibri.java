@@ -18,7 +18,7 @@ public class StreamLibri {
     //Dobbiamo contare i libri di cyberpunk
     public long contaLibriCyberpunk(List<Libro> list) {
         return list.stream()
-        .filter(e -> e.categoria.equals("CYBERPUNK"))
+        .filter(e -> String.valueOf(e.getCategoria()).equals("CYBERPUNK"))
         .count();
     }
 
@@ -42,7 +42,9 @@ public class StreamLibri {
     }
 
     public int sommaCosti_reduce(List<Libro> list) {
-        return 0;
+        // reduce(0, (accum, v) -> accum + v);
+        return list.stream()
+                   .reduce(0, (accum, lista) -> accum + lista.getPrezzo(), (t, u) -> Integer.signum(u));
     }
 
     public int sommaCosti_sum(List<Libro> list) {
