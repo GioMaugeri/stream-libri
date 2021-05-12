@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.ids.libri.Libro.Categoria;
+import java.util.Comparator;
 
 public class StreamLibri {
 
@@ -66,18 +67,21 @@ public class StreamLibri {
     }
 
     public double sommaCostiInDollari(double EUR_USD, List<Libro> list) {
-        double somma=list.stream()
-        .map(Libro::getPrezzo)
-        .reduce(0,(accum,v)->accum+v);
-        return somma;
+        return list.stream()
+                .mapToDouble(b->b.getPrezzo()*EUR_USD)
+                .sum();
     }
 
     public Optional<Libro> libroMenoCaroDa12InSu(List<Libro> list) {
-        return null;
+        return list.stream()
+                .filter(s->s.getPrezzo() >= 12)
+                .min(Comparator.comparing(Libro::getPrezzo));
     }
 
     public List<Libro> libriOrdinatiPerPrezzo(List<Libro> list) {
-        return null;
+        return list.stream()
+                .sorted(Comparator.comparing(Libro::getPrezzo))
+                .collect(Collectors.toList());
     }
 
     // Titolo: "Harry Potter 1" "Harry Potter 2"... "Harry Potter n"
@@ -87,7 +91,9 @@ public class StreamLibri {
     }
 
     public List<Libro> mescolaLista(List<Libro> list) {
-        return null;
+        return list.stream()
+                .filter(s->s.getPrezzo()>=0)
+                .collect(Collectors.toList());
     }
 
     public Optional<Libro> primoPiuCaroDelPrecedente(List<Libro> list) {
