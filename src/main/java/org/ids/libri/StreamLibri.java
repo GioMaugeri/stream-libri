@@ -38,23 +38,38 @@ public class StreamLibri {
     }
 
     public List<Libro> generaListaLibriCyberpunk(int n) {
-        return null;
+        return Stream.generate(Libreria::gen)
+                .filter(s->s.getCategoria()==Categoria.CYBERPUNK)
+                .limit(n)
+                .collect(Collectors.toList());
     }
 
     public boolean checkSePresenteBurningChrome(List<Libro> list) {
-        return true;
+        Optional<Libro> r = list.stream()
+        .filter(p->p.getTitolo().equals("BurningChrome"))
+        .findAny();
+        return r.isPresent();
     }
 
     public int sommaCosti_reduce(List<Libro> list) {
-        return 0;
+        int somma=list.stream()
+        .map(Libro::getPrezzo)
+        .reduce(0,Integer::sum);
+        return somma;
     }
 
     public int sommaCosti_sum(List<Libro> list) {
-        return 0;
+        int somma=list.stream()
+        .mapToInt(b->b.getPrezzo())
+        .sum();
+        return somma;
     }
 
     public double sommaCostiInDollari(double EUR_USD, List<Libro> list) {
-        return 0.0;
+        double somma=list.stream()
+        .map(Libro::getPrezzo)
+        .reduce(0,(accum,v)->accum+v);
+        return somma;
     }
 
     public Optional<Libro> libroMenoCaroDa12InSu(List<Libro> list) {
