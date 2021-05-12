@@ -35,4 +35,8 @@ public class Libro {
 	public String toString() {
 		return titolo + " (" + categoria + ", " + prezzo + "€)";
 	}
+
+	public Object getMax(Libro u) {
+		return null;
+	}
 }

@@ -1,5 +1,6 @@
 package org.ids.libri;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -46,7 +47,10 @@ public class StreamLibri {
     }
 
     public boolean checkSePresenteBurningChrome(List<Libro> list) {
-        return true;
+        Optional<Libro> r = list.stream()
+                        .filter(p -> p.getTitolo().equals("BurningChrome"))
+                        .findAny();
+        return r.isPresent();
     }
 
     public int sommaCosti_reduce(List<Libro> list) {
@@ -56,29 +60,37 @@ public class StreamLibri {
     }
 
     public int sommaCosti_sum(List<Libro> list) {
-        return 0;
+        return list.stream()
+                .map(b -> b.getPrezzo())
+                .reduce(0, Integer::sum);
     }
 
     public double sommaCostiInDollari(double EUR_USD, List<Libro> list) {
-        return 0.0;
-    // return list.stream()
-    //          .filter(t -> t.getPrezzo())
-    //          .map(y -> y * EUR_USD)
-    //          .collect(Collectors.toList());
+        return list.stream()
+                    .mapToDouble(b -> b.getPrezzo() * EUR_USD)
+                    .sum();
         }
 
     public Optional<Libro> libroMenoCaroDa12InSu(List<Libro> list) {
-        return null;
+        Optional<Libro> pmax = list.stream()
+                                .filter(x -> x.getPrezzo() >= 12)
+                                .min(Comparator.comparing(Libro::getPrezzo));
+        return pmax;
     }
 
     public List<Libro> libriOrdinatiPerPrezzo(List<Libro> list) {
-        return null;
+        return list.stream()
+                    .sorted(Comparator.comparing(Libro::getPrezzo))
+                    .collect(Collectors.toList());
     }
 
     // Titolo: "Harry Potter 1" "Harry Potter 2"... "Harry Potter n"
     // categoria: fantasy, prezzo: 15 euro
     public List<Libro> generaLibriHarryPotterDa15Euro(int n) {
         return null;
+        // return Stream.iterate(n, n -> n +1)
+        //              .limit(n)
+
     }
 
     public List<Libro> mescolaLista(List<Libro> list) {
@@ -87,6 +99,8 @@ public class StreamLibri {
 
     public Optional<Libro> primoPiuCaroDelPrecedente(List<Libro> list) {
         return null;
+        // return list.stream
+        //         .sorted(Comparator.comparing(Libro::getPrezzo))
     }
 
 }
