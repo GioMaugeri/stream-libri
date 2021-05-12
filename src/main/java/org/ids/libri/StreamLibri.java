@@ -5,6 +5,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.ids.libri.Libro.Categoria;
+
 public class StreamLibri {
 
     // mi appoggio ad un factory method che genera a rotazione
@@ -24,17 +26,23 @@ public class StreamLibri {
 
     public List<Libro> prezzoCompresoTra12e15(List<Libro> list) {
         return list.stream()
-                .filter(s -> s.getPrezzo() >= 12)
-                 .filter(s -> s.getPrezzo() <= 15)
-                 .collect(Collectors.toList());
+                   .filter(s -> s.getPrezzo() >= 12 && s.getPrezzo() <= 15)
+                   .collect(Collectors.toList());
+
     }
 
     public List<String> filtraListaTitoliLibriCyberpunkOppureFantasy(List<Libro> list) {
-        return null;
+        return list.stream()
+                   .filter(s -> s.getCategoria() == Categoria.CYBERPUNK || s.getCategoria() == Categoria.FANTASY)
+                   .map(s -> s.getTitolo())
+                   .collect(Collectors.toList());
     }
 
     public List<Libro> generaListaLibriCyberpunk(int n) {
-        return null;
+        return Stream.generate(Libreria::gen)
+                    .filter(s -> s.getCategoria() == Categoria.CYBERPUNK) 
+                    .limit(n)
+                    .collect(Collectors.toList());
     }
 
     public boolean checkSePresenteBurningChrome(List<Libro> list) {
@@ -53,7 +61,11 @@ public class StreamLibri {
 
     public double sommaCostiInDollari(double EUR_USD, List<Libro> list) {
         return 0.0;
-    }
+    // return list.stream()
+    //          .filter(t -> t.getPrezzo())
+    //          .map(y -> y * EUR_USD)
+    //          .collect(Collectors.toList());
+        }
 
     public Optional<Libro> libroMenoCaroDa12InSu(List<Libro> list) {
         return null;
