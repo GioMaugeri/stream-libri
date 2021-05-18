@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import java.util.stream.IntStream;
 import org.ids.libri.Libro.Categoria;
 import java.util.Comparator;
 
@@ -20,6 +21,7 @@ public class StreamLibri {
     public long contaLibriCyberpunk(List<Libro> list) {
         return list.stream()
                 .filter(s->s.getCategoria()==Categoria.CYBERPUNK)
+                .peek(System.out::println)
                 .count();
         
     }
@@ -28,6 +30,7 @@ public class StreamLibri {
         return list.stream()
                 .filter(s -> s.getPrezzo() >= 12)
                  .filter(s -> s.getPrezzo() <= 15)
+                 .peek(System.out::println)
                  .collect(Collectors.toList());
     }
 
@@ -35,6 +38,7 @@ public class StreamLibri {
         return list.stream()
                 .filter(s->s.getCategoria()==Categoria.CYBERPUNK||s.getCategoria()==Categoria.FANTASY)
                 .map(s->s.getTitolo())
+                .peek(System.out::println)
                 .collect(Collectors.toList());
     }
 
@@ -42,6 +46,7 @@ public class StreamLibri {
         return Stream.generate(Libreria::gen)
                 .filter(s->s.getCategoria()==Categoria.CYBERPUNK)
                 .limit(n)
+                .peek(System.out::println)
                 .collect(Collectors.toList());
     }
 
@@ -54,6 +59,7 @@ public class StreamLibri {
 
     public int sommaCosti_reduce(List<Libro> list) {
         int somma=list.stream()
+        .peek(System.out::println)
         .map(Libro::getPrezzo)
         .reduce(0,Integer::sum);
         return somma;
@@ -61,6 +67,7 @@ public class StreamLibri {
 
     public int sommaCosti_sum(List<Libro> list) {
         int somma=list.stream()
+        .peek(System.out::println)
         .mapToInt(b->b.getPrezzo())
         .sum();
         return somma;
@@ -75,30 +82,40 @@ public class StreamLibri {
     public Optional<Libro> libroMenoCaroDa12InSu(List<Libro> list) {
         return list.stream()
                 .filter(s->s.getPrezzo() >= 12)
+                .peek(System.out::println)
                 .min(Comparator.comparing(Libro::getPrezzo));
     }
 
     public List<Libro> libriOrdinatiPerPrezzo(List<Libro> list) {
         return list.stream()
                 .sorted(Comparator.comparing(Libro::getPrezzo))
-                //.peek(System.out::println)
+                .peek(System.out::println)
                 .collect(Collectors.toList());
     }
 
     // Titolo: "Harry Potter 1" "Harry Potter 2"... "Harry Potter n"
     // categoria: fantasy, prezzo: 15 euro
     public List<Libro> generaLibriHarryPotterDa15Euro(int n) {
-        return null;
+        return IntStream.rangeClosed(1, n)
+        .mapToObj(i -> new Libro("Harry Potter " + i, Categoria.FANTASY, 15))
+        .peek(System.out::println)
+        .collect(Collectors.toList());
     }
 
     public List<Libro> mescolaLista(List<Libro> list) {
         return list.stream()
                 .filter(s->s.getPrezzo()>=0)
+                .peek(System.out::println)
                 .collect(Collectors.toList());
     }
 
     public Optional<Libro> primoPiuCaroDelPrecedente(List<Libro> list) {
-        return null;
+        return IntStream.range(1, list.size())
+        .parallel()
+        .filter(i -> list.get(i - 1).getPrezzo() < list.get(i).getPrezzo())
+        .mapToObj(i -> list.get(i))
+        .peek(System.out::println)
+        .findFirst();
     }
 
 }
