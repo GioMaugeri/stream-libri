@@ -81,6 +81,7 @@ public class StreamLibri {
     public List<Libro> libriOrdinatiPerPrezzo(List<Libro> list) {
         return list.stream()
                 .sorted(Comparator.comparing(Libro::getPrezzo))
+                //.peek(System.out::println)
                 .collect(Collectors.toList());
     }
 
